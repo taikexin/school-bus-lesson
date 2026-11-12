@@ -179,7 +179,12 @@ body{margin:0;background:radial-gradient(ellipse at 85% 0%,#f6e4ac,transparent 5
  #classroom .classroom-header p{font-size:11px}
  #classroom .bus-opening,#classroom .comic-panel{aspect-ratio:1.55}
 }
-@media print{body.printing-body-passport #classroom{min-height:0;box-shadow:none}}</style></head><body>
+@media print{body.printing-body-passport #classroom{min-height:0;box-shadow:none}}
+body{display:flow-root}
+#classroom .classroom-stage:has(.bus-start-actions){display:flex;flex-direction:column}
+#classroom .classroom-stage:has(.bus-start-actions)>.bus-opening{order:1;flex:none;width:100%}
+#classroom .classroom-stage:has(.bus-start-actions)>.class-feedback,#classroom .classroom-stage:has(.bus-start-actions)>.class-step-actions:not(.bus-start-actions){order:2}
+#classroom .bus-start-actions{margin:0 0 11px}</style></head><body>
 <main id="classroom" aria-labelledby="classroom-title">
   <header class="classroom-header"><div><p id="classroom-meta"></p><h1 id="classroom-title">神奇校车 · 身体工厂大探险</h1></div><nav class="classroom-modes" id="classroom-modes" aria-label="课堂与教师资料"></nav></header>
   <div class="classroom-content">
@@ -394,7 +399,7 @@ const fullCourses = {
     return false;
   }
   const bodyScenes = [
-    {place:"呼吸站",title:"空气往哪儿走？",image:"comic-lungs.webp",ask:"点一点评展里的肺，再把手放到胸口，吸一口气。",gesture:"找找肺",x:71,y:43},
+    {place:"呼吸站",title:"空气往哪儿走？",image:"comic-lungs.webp",ask:"点一点展柜里的肺，再把手放到胸口，吸一口气。",gesture:"找找肺",x:71,y:43},
     {place:"心跳站",title:"谁在咚咚响？",image:"comic-heart.webp",ask:"点亮心脏。再用手摸一摸自己的胸口，感受心跳。",gesture:"点亮心脏",x:72,y:45},
     {place:"食物站",title:"食物后来去了哪儿？",image:"comic-stomach.webp",ask:"点一点胃。想想吃下一口食物之后，它去了哪里。",gesture:"找找胃",x:69,y:43}
   ];
@@ -405,7 +410,7 @@ const fullCourses = {
       '<img src="'+asset("comic-opening.webp")+'" alt="黄色校车来到身体工厂门前">'+
       '<div class="bus-motion-lamp" aria-hidden="true"></div>'+
       '<div class="bus-opening-caption"><b>小小探险员，上车啦！</b><span>空气和面包都从嘴巴进去，为什么走了不同的路？</span></div></section>'+
-      '<div class="class-step-actions">'+
+      '<div class="class-step-actions bus-start-actions">'+
       (started?button("翻开第一格漫画","read-done","","primary")+button("重播发车动画","body-intro"):button("点亮阅读灯，发车！","body-intro","","primary"))+
       '</div>';
   }
