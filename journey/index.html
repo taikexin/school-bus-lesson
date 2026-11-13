@@ -43,6 +43,48 @@ header{padding:16px 4vw}.main{width:min(700px,94%);margin:auto auto 0;display:fl
 .detail-art{background-size:200% auto;background-color:#e8d7df}
 .word-picture{background-size:200% auto;background-color:#eadbe2}
 @media(max-width:800px){.organ-card{aspect-ratio:1.35 / 1}}
+/* 适配触屏和不同屏幕比例，保留原始画面和互动流程。 */
+button{touch-action:manipulation}
+.movie video,.travel-bridge video{object-fit:contain}
+.modalbox{max-height:calc(100dvh - 24px)}
+.detail-art{width:100%;align-self:center}
+@media(max-width:600px){
+  header{gap:8px;padding: max(12px,env(safe-area-inset-top)) 4vw 8px;font-size:12px;letter-spacing:0}
+  .brand{min-width:0;line-height:1.35}.topbtn{flex:none;min-height:44px;padding:8px 12px}
+  .stage{min-height:100vh;min-height:100dvh}
+  .main{width:min(94%,520px);margin:auto auto 0}
+  .main .title{font-size:clamp(22px,6vw,28px)}
+  .panel{padding:12px;border-radius:20px}
+  .choices{gap:8px}.play-action{min-width:72px;min-height:72px;border-radius:22px}
+  .play-action .picture-token{width:62px;height:62px}
+  .tap-progress{gap:5px;padding:0 3px}.tap-progress i{width:11px;height:11px}
+  .pair{gap:7px}.organ-card{aspect-ratio:1 / 1;border-radius:16px}
+  .organ-card b{font-size:13px;padding:4px 8px}.organ-card:after{font-size:15px}
+  .controls{padding:10px 4vw max(14px,env(safe-area-inset-bottom));gap:8px}
+  .controls button{min-height:44px;padding:10px 16px}
+  .modal{padding: max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom))}
+  .modalbox{width:100%;height:auto;max-height:100%;padding:12px;overflow-y:auto}
+  .modal-head h2{font-size:18px}.modal-head button{min-width:48px;min-height:48px}
+  .detail-art{flex:none;width:min(100%,52dvh);aspect-ratio:1 / 1;margin:10px auto;background-size:200% auto}
+  .detail-foot{flex-wrap:wrap}.detail-foot p{flex:1 1 150px}.detail-foot button{min-height:44px}
+  .movie{padding:12px}.moviebox{max-height:calc(100dvh - 24px);overflow:auto}
+  .movie video{max-height:65dvh}.movie .moviecaption{font-size:15px}
+  .movie .moviebuttons{flex-wrap:wrap}.movie .moviebuttons button{min-height:44px;margin-top:6px}
+  .travel-bridge .bridge-skip{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));width:48px;height:48px}
+  .singalong video{object-fit:contain}.sing-ui{padding:12px 3vw max(14px,env(safe-area-inset-bottom))}
+  .sing-actions{gap:6px;flex-wrap:wrap}.sing-action{padding:5px;border-radius:18px}.sing-action .picture-token{width:48px;height:48px}
+  .sing-exit{min-height:44px;margin-top:8px;padding:8px 15px}.sing-ui p{margin-bottom:8px}
+}
+@media(max-height:500px) and (orientation:landscape){
+  .stage{min-height:100dvh}.main{margin:8px auto 0}.main .title{font-size:22px}
+  header{padding:8px 4vw}.panel{padding:8px 12px}.panel h2,.panel>p{margin-bottom:2px}
+  .play-action{min-width:64px;min-height:64px}.play-action .picture-token{width:54px;height:54px}
+  .pair{max-width:370px;margin:6px auto 0}.organ-card{aspect-ratio:1.5 / 1}
+  .controls{padding:8px 4vw 12px}.modalbox{height:calc(100dvh - 20px)}
+  .detail-art{flex:none;width:min(100%,48dvh);height:48dvh;aspect-ratio:1 / 1;margin:4px auto;background-size:200% auto}
+  .movie video{max-height:62dvh}.movie .moviebuttons button{margin-top:4px}
+  .sing-ui{padding:6px 3vw}.sing-ui h2{font-size:20px}.sing-ui p{margin-bottom:4px}.sing-action .picture-token{width:36px;height:36px}.sing-exit{margin-top:4px}
+}
 </style></head><body><div class="stage"><div class="art" id="art"></div><video id="sceneMotion" class="scene-motion" muted playsinline preload="none" aria-hidden="true"></video><div class="scene-reaction" id="sceneReaction" aria-hidden="true"><span class="picture-token" id="reactionIcon"></span></div><div class="glow"></div><div class="sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><header><div class="brand">✦ 悦读森林 <span> / 尼克的身体大冒险</span></div><div class="progress" id="progress" aria-label="旅行进度"></div><button class="topbtn" id="sound">🔊 听故事</button></header><main class="main"><section><div class="eyebrow" id="eyebrow"></div><h1 class="title" id="title"></h1><p class="desc" id="desc"></p><p class="hint" id="hint"></p></section><section class="panel" aria-live="polite"><h2 id="question"></h2><p id="instruction"></p><div class="choices" id="choices"></div><div class="feedback" id="feedback"></div><div class="auto-hint" id="autoHint" aria-live="polite"></div></section></main><div class="controls"><button class="back" id="back">← 上一幕</button><div class="word" id="word"></div><button class="primary" id="next">继续探险 →</button></div></div><div class="travel-bridge" id="travelBridge" aria-label="校车继续旅行"><video id="bridgeVideo" muted playsinline preload="none"></video><button class="bridge-skip" id="bridgeSkip" aria-label="继续故事">▶</button></div><div class="scene-transition" id="sceneTransition" aria-hidden="true"></div><div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modalbox"><div class="modal-head"><h2 id="modalTitle">🔍 发现秘密</h2><button class="choice" id="close" aria-label="返回故事">✕</button></div><div class="detail-art" id="detailArt"><div class="detail-signal" aria-hidden="true"><span id="detailSignal">✨</span></div><button class="detail-tap" id="detailTap" aria-label="点一点，发现秘密">👆</button></div><div class="detail-foot"><p id="detailMessage" aria-live="polite">点一点，发现秘密！</p><button class="primary" id="detailDone">返回故事 →</button></div></div></div><div class="movie" id="movie" role="dialog" aria-modal="true" aria-label="尼克的动画"><div class="moviebox"><video id="movievideo" playsinline controls></video><p class="moviecaption" id="moviecaption"></p><div class="moviebuttons"><button class="choice" id="moviereplay">↻ 再看一次</button><button class="primary" id="movieskip">继续故事 →</button></div></div></div><div class="movie" id="storyFilm" role="dialog" aria-modal="true" aria-label="完整故事"><div class="moviebox"><video id="storyFilmVideo" controls playsinline preload="none"></video><p class="moviecaption">和尼克再看一次身体大冒险</p><div class="moviebuttons"><button class="primary" id="storyFilmClose">返回课程 →</button></div></div></div><div class="singalong" id="singalong" role="dialog" aria-modal="true" aria-label="和尼克一起唱"><video id="singVideo" playsinline preload="none"></video><div class="sing-ui"><h2>和尼克一起唱</h2><p>听一听，跟着做！</p><div class="sing-actions"><button class="sing-action" id="singMouth" aria-label="嚼一嚼"><span class="picture-token" style="background-position:33.333% 0%"></span></button><button class="sing-action" id="singHeart" aria-label="摸摸心口"><span class="picture-token" style="background-position:100% 0%"></span></button><button class="sing-action" id="singBreath" aria-label="一起呼吸"><span class="picture-token" style="background-position:0% 100%"></span></button><button class="sing-action" id="singHand" aria-label="挥挥手"><span class="picture-token" style="background-position:33.333% 100%"></span></button></div><div class="sing-msg" id="singMsg" aria-live="polite"></div><div><button class="sing-exit" id="singReplay" aria-label="再听一次儿歌">↻ 再听一次</button> <button class="sing-exit" id="singExit">✓ 唱完啦</button></div></div></div><script>
 const scenes=[
 {img:'opening-poster.webp',tag:'今天，我们出发',title:'身体里，藏着一座神奇工厂',desc:'聪明的尼克要开着神奇校车，和你一起探索人体的奥秘！准备好了吗？',hint:'翻开你的书，跟尼克一起出发。',q:'探险家，准备好了吗？',instructions:'点一下面前的车票，开启这次旅行。',options:['🎫 我准备好了！'],correct:0,feedback:'系好安全带，神奇校车要变小啦！',word:'神奇 · shén qí'},
